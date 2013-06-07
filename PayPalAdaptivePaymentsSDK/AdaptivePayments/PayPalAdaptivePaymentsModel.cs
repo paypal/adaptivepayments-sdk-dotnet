@@ -319,6 +319,16 @@ namespace PayPal.AdaptivePayments.Model
 		
 
 		/// <summary>
+		/// Constructor with arguments
+	 	/// </summary>
+	 	public BaseAddress(string line1, string city, string countryCode)
+	 	{
+			this.line1 = line1;
+			this.city = city;
+			this.countryCode = countryCode;
+		}
+
+		/// <summary>
 		/// Default Constructor
 	 	/// </summary>
 	 	public BaseAddress()
@@ -326,6 +336,39 @@ namespace PayPal.AdaptivePayments.Model
 		}
 
 
+		public string ToNVPString(string prefix)
+		{
+			StringBuilder sb = new StringBuilder();
+			if (this.line1 != null)
+			{
+					sb.Append(prefix).Append("line1").Append("=").Append(HttpUtility.UrlEncode(this.line1, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.line2 != null)
+			{
+					sb.Append(prefix).Append("line2").Append("=").Append(HttpUtility.UrlEncode(this.line2, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.city != null)
+			{
+					sb.Append(prefix).Append("city").Append("=").Append(HttpUtility.UrlEncode(this.city, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.state != null)
+			{
+					sb.Append(prefix).Append("state").Append("=").Append(HttpUtility.UrlEncode(this.state, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.postalCode != null)
+			{
+					sb.Append(prefix).Append("postalCode").Append("=").Append(HttpUtility.UrlEncode(this.postalCode, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.countryCode != null)
+			{
+					sb.Append(prefix).Append("countryCode").Append("=").Append(HttpUtility.UrlEncode(this.countryCode, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.type != null)
+			{
+					sb.Append(prefix).Append("type").Append("=").Append(HttpUtility.UrlEncode(this.type, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			return sb.ToString();
+		}
 		/// <summary>
 		/// Factory method for creating new object instances. For use by the de-serialization classes only.
 	 	/// </summary>
@@ -3428,6 +3471,23 @@ namespace PayPal.AdaptivePayments.Model
 		/// <summary>
 		/// 
 		/// </summary>
+		private string middleNameField;
+		public string middleName
+		{
+			get
+			{
+				return this.middleNameField;
+			}
+			set
+			{
+				this.middleNameField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
 		private string displayNameField;
 		public string displayName
 		{
@@ -3494,6 +3554,40 @@ namespace PayPal.AdaptivePayments.Model
 		
 
 		/// <summary>
+		/// 
+		/// </summary>
+		private string dateOfBirthField;
+		public string dateOfBirth
+		{
+			get
+			{
+				return this.dateOfBirthField;
+			}
+			set
+			{
+				this.dateOfBirthField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private BaseAddress addressField;
+		public BaseAddress address
+		{
+			get
+			{
+				return this.addressField;
+			}
+			set
+			{
+				this.addressField = value;
+			}
+		}
+		
+
+		/// <summary>
 		/// Constructor with arguments
 	 	/// </summary>
 	 	public InstitutionCustomer(string institutionId, string firstName, string lastName, string displayName, string institutionCustomerId, string countryCode)
@@ -3529,6 +3623,10 @@ namespace PayPal.AdaptivePayments.Model
 			{
 					sb.Append(prefix).Append("lastName").Append("=").Append(HttpUtility.UrlEncode(this.lastName, BaseConstants.ENCODING_FORMAT)).Append("&");
 			}
+			if (this.middleName != null)
+			{
+					sb.Append(prefix).Append("middleName").Append("=").Append(HttpUtility.UrlEncode(this.middleName, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
 			if (this.displayName != null)
 			{
 					sb.Append(prefix).Append("displayName").Append("=").Append(HttpUtility.UrlEncode(this.displayName, BaseConstants.ENCODING_FORMAT)).Append("&");
@@ -3544,6 +3642,15 @@ namespace PayPal.AdaptivePayments.Model
 			if (this.email != null)
 			{
 					sb.Append(prefix).Append("email").Append("=").Append(HttpUtility.UrlEncode(this.email, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.dateOfBirth != null)
+			{
+					sb.Append(prefix).Append("dateOfBirth").Append("=").Append(this.dateOfBirth).Append("&");
+			}
+			if (this.address != null)
+			{
+					string newPrefix = prefix + "address" + ".";
+					sb.Append(this.addressField.ToNVPString(newPrefix));
 			}
 			return sb.ToString();
 		}
@@ -3593,6 +3700,12 @@ namespace PayPal.AdaptivePayments.Model
 				institutionCustomer = (institutionCustomer == null) ? new InstitutionCustomer() : institutionCustomer;
 				institutionCustomer.lastName = map[key];
 			}
+			key = prefix + "middleName";
+			if (map.ContainsKey(key))
+			{
+				institutionCustomer = (institutionCustomer == null) ? new InstitutionCustomer() : institutionCustomer;
+				institutionCustomer.middleName = map[key];
+			}
 			key = prefix + "displayName";
 			if (map.ContainsKey(key))
 			{
@@ -3616,6 +3729,18 @@ namespace PayPal.AdaptivePayments.Model
 			{
 				institutionCustomer = (institutionCustomer == null) ? new InstitutionCustomer() : institutionCustomer;
 				institutionCustomer.email = map[key];
+			}
+			key = prefix + "dateOfBirth";
+			if (map.ContainsKey(key))
+			{
+				institutionCustomer = (institutionCustomer == null) ? new InstitutionCustomer() : institutionCustomer;
+				institutionCustomer.dateOfBirth = map[key];
+			}
+			BaseAddress address =  BaseAddress.CreateInstance(map, prefix + "address", -1);
+			if (address != null)
+			{
+				institutionCustomer = (institutionCustomer == null) ? new InstitutionCustomer() : institutionCustomer;
+				institutionCustomer.address = address;
 			}
 			return institutionCustomer;
 		}
