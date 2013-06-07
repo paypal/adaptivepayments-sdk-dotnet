@@ -1,3 +1,9 @@
+Version 2.5.103 - June 07, 2013
+ 
+	- Updated stubs for 103 release.
+	
+You can see source code of this release in github under https://github.com/paypal/adaptivepayments-sdk-dotnet/tree/v2.5.103.
+--------------------------------------------------------------------------------------------------
 Version 2.4.101 - April 30, 2013
  
 	- Updated core dll.
