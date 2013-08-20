@@ -12,6 +12,7 @@
 
 </head>
 <body>
+	<img src="https://devtools-paypal.com/image/bdg_payments_by_pp_2line.png" alt="PAYMENTS BY PayPal" />
     <div id="wrapper">
         <div id="header">
             <h3>
@@ -22,7 +23,7 @@
                 or a specific receiver of a payKey.</div>
         </div>
         <div id="request_form">
-            <form action="adaptivepaymentshandler.ashx" method="post" runat="server">
+            <form action="AdaptivePaymentsHandler.ashx" method="post" runat="server">
                 <div class="params">
                     <div class="param_name">
                         Currency code</div>
@@ -122,7 +123,7 @@
                     </tr>
                 </table>
                 <div class="submit">
-                    <asp:Button ID="AdaptivePaymentsBtn" Text="Refund" runat="server" PostBackUrl="adaptivepaymentshandler.ashx" />
+                    <asp:Button ID="AdaptivePaymentsBtn" Text="Refund" runat="server" PostBackUrl="AdaptivePaymentsHandler.ashx" />
                 </div>
             </form>
         </div>

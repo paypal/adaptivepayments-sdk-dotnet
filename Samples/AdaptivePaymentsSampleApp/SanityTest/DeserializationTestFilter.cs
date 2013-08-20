@@ -1,13 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Configuration;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 
 using PayPal.Util;
 
@@ -32,13 +25,13 @@ namespace AdaptivePaymentsSampleApp.SanityTest
 
             if (context.Items.Contains("responseObject")) {
                 Object responseObj = context.Items["responseObject"];       
-                String originalResponse = (String) context.Items["responsePayload"];
-                Dictionary<string, string> constructedMap = ReflectionUtil.decodeResponseObject(responseObj, "");
+                string originalResponse = (string) context.Items["responsePayload"];
+                Dictionary<string, string> constructedMap = ReflectionUtil.decodeResponseObject(responseObj, string.Empty);
                 NVPUtil nvpUtil = new NVPUtil();
                 Dictionary<string, string> originalMap = nvpUtil.ParseNVPString(originalResponse);
 
                 if (!originalMap.Equals(constructedMap)) {			        
-			        foreach (String key in originalMap.Keys) {
+			        foreach (string key in originalMap.Keys) {
 				        if (!originalMap[key].Equals(constructedMap[key])) {
 					        context.Response.Write(
                                 "Original: " + key + " => " + originalMap[key]

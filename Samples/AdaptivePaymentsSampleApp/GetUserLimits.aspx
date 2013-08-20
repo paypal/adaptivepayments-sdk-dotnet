@@ -13,6 +13,7 @@
 
 </head>
 <body>
+	<img src="https://devtools-paypal.com/image/bdg_payments_by_pp_2line.png" alt="PAYMENTS BY PayPal" />
     <div id="wrapper">
         <div id="header">
             <h3>
@@ -21,7 +22,7 @@
                 Use the GetUserLimits API operation to get the remaining limits for a user.</div>
         </div>
         <div id="request_form">
-            <form id="Form1" method="post" action="adaptivepaymentshandler.ashx" runat="server">
+            <form id="Form1" method="post" action="AdaptivePaymentsHandler.ashx" runat="server">
                 <div class="input_header">
                     Account identifier (Provide email or phone)</div>
                 <table>
@@ -65,7 +66,7 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <asp:Button ID="AdaptivePaymentsBtn" Text="GetUserLimits" runat="server" PostBackUrl="adaptivepaymentshandler.ashx" />
+                    <asp:Button ID="AdaptivePaymentsBtn" Text="GetUserLimits" runat="server" PostBackUrl="AdaptivePaymentsHandler.ashx" />
                 </div>
             </form>
         </div>

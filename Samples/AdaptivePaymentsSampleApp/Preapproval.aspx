@@ -12,6 +12,7 @@
 
 </head>
 <body>
+	<img src="https://devtools-paypal.com/image/bdg_payments_by_pp_2line.png" alt="PAYMENTS BY PayPal" />
     <div id="wrapper">
         <div id="header">
             <h3>
@@ -25,7 +26,7 @@
                 or not a PIN is required for each payment request.</div>
         </div>
         <div id="request_form">
-            <form id="Form1" method="post" action="adaptivepaymentshandler.ashx" runat="server">
+            <form id="Form1" method="post" action="AdaptivePaymentsHandler.ashx" runat="server">
                 <div class="params">
                     <div class="param_name">
                         Cancel Url *</div>
@@ -140,14 +141,14 @@
                     <div class="param_name">
                         Sender email</div>
                     <div class="param_value">
-                        <input name="senderEmail" id="senderEmail" value="" />
+                        <input name="senderEmail" id="senderEmail" runat="server" />
                     </div>
                 </div>
                 <div class="params">
                     <div class="param_name">
                         Starting date *</div>
                     <div class="param_value">
-                        <input name="startingDate" id="startingDate" value="" runat="server" />
+                        <input name="startingDate" id="startingDate" runat="server" />
                     </div>
                 </div>
                 <div class="params">
@@ -181,7 +182,7 @@
                     </div>
                 </div>
                 <div class="submit">
-                    <asp:Button ID="AdaptivePaymentsBtn" Text="Preapproval" runat="server" PostBackUrl="adaptivepaymentshandler.ashx" />
+                    <asp:Button ID="AdaptivePaymentsBtn" Text="Preapproval" runat="server" PostBackUrl="AdaptivePaymentsHandler.ashx" />
                 </div>
             </form>
         </div>
