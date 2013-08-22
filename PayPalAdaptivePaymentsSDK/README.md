@@ -70,6 +70,8 @@ The PayPal Adaptive Payments API enables merchants and developers to pay almost 
     AdaptivePaymentsService service = new  AdaptivePaymentsService(config);
     ```
 
+	You can refer full list of configuration parameters in [wiki](https://github.com/paypal/sdk-core-dotnet/wiki/SDK-Configuration-Parameters)
+	
 ## Links
 
    * [Installing NuGet in Visual Studio 2005 & 2008] (https://github.com/paypal/sdk-core-dotnet/wiki/Using-Nuget-in-Visual-Studio-2005-&-2008)

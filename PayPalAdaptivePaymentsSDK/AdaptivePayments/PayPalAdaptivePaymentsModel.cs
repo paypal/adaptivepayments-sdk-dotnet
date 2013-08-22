@@ -1668,6 +1668,35 @@ namespace PayPal.AdaptivePayments.Model
 
 	/// <summary>
 	/// 
+	/// </summary>
+    [Serializable]
+	public enum AgreementType {
+		[Description("OFFLINE")]OFFLINE,	
+		[Description("ONLINE")]ONLINE	
+	}
+
+
+
+
+	/// <summary>
+	/// 
+	/// </summary>
+    [Serializable]
+	public enum PhoneType {
+		[Description("NONE")]NONE,	
+		[Description("HOME")]HOME,	
+		[Description("WORK")]WORK,	
+		[Description("BUSINESS")]BUSINESS,	
+		[Description("MOBILE")]MOBILE,	
+		[Description("FAX_HOME")]FAXHOME,	
+		[Description("FAX_BUSINESS")]FAXBUSINESS	
+	}
+
+
+
+
+	/// <summary>
+	/// 
     /// </summary>
 	public partial class Address	{
 		
@@ -2630,6 +2659,291 @@ namespace PayPal.AdaptivePayments.Model
 				fundingTypeInfo.fundingType = map[key];
 			}
 			return fundingTypeInfo;
+		}
+	}
+
+
+
+
+	/// <summary>
+	/// ShippingAddressInfo. 
+    /// </summary>
+	public partial class ShippingAddressInfo	{
+		
+		// Default US culture info
+		private static CultureInfo DefaultCulture = new CultureInfo("en-US");
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private string addresseeNameField;
+		public string addresseeName
+		{
+			get
+			{
+				return this.addresseeNameField;
+			}
+			set
+			{
+				this.addresseeNameField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private string street1Field;
+		public string street1
+		{
+			get
+			{
+				return this.street1Field;
+			}
+			set
+			{
+				this.street1Field = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private string street2Field;
+		public string street2
+		{
+			get
+			{
+				return this.street2Field;
+			}
+			set
+			{
+				this.street2Field = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private string cityField;
+		public string city
+		{
+			get
+			{
+				return this.cityField;
+			}
+			set
+			{
+				this.cityField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private string stateField;
+		public string state
+		{
+			get
+			{
+				return this.stateField;
+			}
+			set
+			{
+				this.stateField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private string zipField;
+		public string zip
+		{
+			get
+			{
+				return this.zipField;
+			}
+			set
+			{
+				this.zipField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private string countryField;
+		public string country
+		{
+			get
+			{
+				return this.countryField;
+			}
+			set
+			{
+				this.countryField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private List<PhoneNumber> phoneField = new List<PhoneNumber>();
+		public List<PhoneNumber> phone
+		{
+			get
+			{
+				return this.phoneField;
+			}
+			set
+			{
+				this.phoneField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// Default Constructor
+	 	/// </summary>
+	 	public ShippingAddressInfo()
+	 	{
+		}
+
+
+		public string ToNVPString(string prefix)
+		{
+			StringBuilder sb = new StringBuilder();
+			if (this.addresseeName != null)
+			{
+					sb.Append(prefix).Append("addresseeName").Append("=").Append(HttpUtility.UrlEncode(this.addresseeName, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.street1 != null)
+			{
+					sb.Append(prefix).Append("street1").Append("=").Append(HttpUtility.UrlEncode(this.street1, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.street2 != null)
+			{
+					sb.Append(prefix).Append("street2").Append("=").Append(HttpUtility.UrlEncode(this.street2, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.city != null)
+			{
+					sb.Append(prefix).Append("city").Append("=").Append(HttpUtility.UrlEncode(this.city, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.state != null)
+			{
+					sb.Append(prefix).Append("state").Append("=").Append(HttpUtility.UrlEncode(this.state, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.zip != null)
+			{
+					sb.Append(prefix).Append("zip").Append("=").Append(HttpUtility.UrlEncode(this.zip, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.country != null)
+			{
+					sb.Append(prefix).Append("country").Append("=").Append(HttpUtility.UrlEncode(this.country, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			for (int i = 0; i < this.phone.Count; i++)
+			{
+				if (this.phone[i] != null)
+				{
+					string newPrefix = prefix + "phone" + "(" + i + ").";
+					sb.Append(this.phone[i].ToNVPString(newPrefix));
+				}
+			}
+			return sb.ToString();
+		}
+		/// <summary>
+		/// Factory method for creating new object instances. For use by the de-serialization classes only.
+	 	/// </summary>
+	 	/// <param name="map">NVP map as returned by an API call</param>
+	 	/// <param name="prefix">NVP prefix for this class in the response</param>
+	 	/// <param name="index">For array elements, index of this element in the response</param>
+	 	/// <returns>
+	 	/// A new ShippingAddressInfo object created from the passed in NVP map
+	 	/// </returns>
+		public static ShippingAddressInfo CreateInstance(Dictionary<string, string> map, string prefix, int index)
+		{
+			ShippingAddressInfo shippingAddressInfo = null;
+			string key;
+			int i = 0;
+			if(index != -1)
+			{
+				if (prefix.Length > 0 && !prefix.EndsWith("."))
+				{
+					prefix = prefix + "(" + index + ").";
+				}
+			} 
+			else
+			{
+				if (prefix.Length > 0 && !prefix.EndsWith("."))
+				{
+					prefix = prefix + ".";
+				}
+			}
+			key = prefix + "addresseeName";
+			if (map.ContainsKey(key))
+			{
+				shippingAddressInfo = (shippingAddressInfo == null) ? new ShippingAddressInfo() : shippingAddressInfo;
+				shippingAddressInfo.addresseeName = map[key];
+			}
+			key = prefix + "street1";
+			if (map.ContainsKey(key))
+			{
+				shippingAddressInfo = (shippingAddressInfo == null) ? new ShippingAddressInfo() : shippingAddressInfo;
+				shippingAddressInfo.street1 = map[key];
+			}
+			key = prefix + "street2";
+			if (map.ContainsKey(key))
+			{
+				shippingAddressInfo = (shippingAddressInfo == null) ? new ShippingAddressInfo() : shippingAddressInfo;
+				shippingAddressInfo.street2 = map[key];
+			}
+			key = prefix + "city";
+			if (map.ContainsKey(key))
+			{
+				shippingAddressInfo = (shippingAddressInfo == null) ? new ShippingAddressInfo() : shippingAddressInfo;
+				shippingAddressInfo.city = map[key];
+			}
+			key = prefix + "state";
+			if (map.ContainsKey(key))
+			{
+				shippingAddressInfo = (shippingAddressInfo == null) ? new ShippingAddressInfo() : shippingAddressInfo;
+				shippingAddressInfo.state = map[key];
+			}
+			key = prefix + "zip";
+			if (map.ContainsKey(key))
+			{
+				shippingAddressInfo = (shippingAddressInfo == null) ? new ShippingAddressInfo() : shippingAddressInfo;
+				shippingAddressInfo.zip = map[key];
+			}
+			key = prefix + "country";
+			if (map.ContainsKey(key))
+			{
+				shippingAddressInfo = (shippingAddressInfo == null) ? new ShippingAddressInfo() : shippingAddressInfo;
+				shippingAddressInfo.country = map[key];
+			}
+			i = 0;
+			while(true)
+			{
+				PhoneNumber phone =  PhoneNumber.CreateInstance(map, prefix + "phone", i);
+				if (phone != null)
+				{
+					shippingAddressInfo = (shippingAddressInfo == null) ? new ShippingAddressInfo() : shippingAddressInfo;
+					shippingAddressInfo.phone.Add(phone);
+					i++;
+				} 
+				else
+				{
+					break;
+				}
+			}
+			return shippingAddressInfo;
 		}
 	}
 
@@ -5597,6 +5911,23 @@ namespace PayPal.AdaptivePayments.Model
 		/// <summary>
 		/// 
 		/// </summary>
+		private bool? addressOverrideField;
+		public bool? addressOverride
+		{
+			get
+			{
+				return this.addressOverrideField;
+			}
+			set
+			{
+				this.addressOverrideField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
 		private string referrerCodeField;
 		public string referrerCode
 		{
@@ -5607,6 +5938,23 @@ namespace PayPal.AdaptivePayments.Model
 			set
 			{
 				this.referrerCodeField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private ShippingAddressInfo shippingAddressField;
+		public ShippingAddressInfo shippingAddress
+		{
+			get
+			{
+				return this.shippingAddressField;
+			}
+			set
+			{
+				this.shippingAddressField = value;
 			}
 		}
 		
@@ -5626,9 +5974,18 @@ namespace PayPal.AdaptivePayments.Model
 			{
 					sb.Append(prefix).Append("requireShippingAddressSelection").Append("=").Append(this.requireShippingAddressSelection.ToString().ToLower()).Append("&");
 			}
+			if (this.addressOverride != null)
+			{
+					sb.Append(prefix).Append("addressOverride").Append("=").Append(this.addressOverride.ToString().ToLower()).Append("&");
+			}
 			if (this.referrerCode != null)
 			{
 					sb.Append(prefix).Append("referrerCode").Append("=").Append(HttpUtility.UrlEncode(this.referrerCode, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.shippingAddress != null)
+			{
+					string newPrefix = prefix + "shippingAddress" + ".";
+					sb.Append(this.shippingAddressField.ToNVPString(newPrefix));
 			}
 			return sb.ToString();
 		}
@@ -5666,11 +6023,23 @@ namespace PayPal.AdaptivePayments.Model
 				senderOptions = (senderOptions == null) ? new SenderOptions() : senderOptions;
 				senderOptions.requireShippingAddressSelection = System.Convert.ToBoolean(map[key]);
 			}
+			key = prefix + "addressOverride";
+			if (map.ContainsKey(key))
+			{
+				senderOptions = (senderOptions == null) ? new SenderOptions() : senderOptions;
+				senderOptions.addressOverride = System.Convert.ToBoolean(map[key]);
+			}
 			key = prefix + "referrerCode";
 			if (map.ContainsKey(key))
 			{
 				senderOptions = (senderOptions == null) ? new SenderOptions() : senderOptions;
 				senderOptions.referrerCode = map[key];
+			}
+			ShippingAddressInfo shippingAddress =  ShippingAddressInfo.CreateInstance(map, prefix + "shippingAddress", -1);
+			if (shippingAddress != null)
+			{
+				senderOptions = (senderOptions == null) ? new SenderOptions() : senderOptions;
+				senderOptions.shippingAddress = shippingAddress;
 			}
 			return senderOptions;
 		}
@@ -6450,6 +6819,23 @@ namespace PayPal.AdaptivePayments.Model
 		
 
 		/// <summary>
+		/// 
+		/// </summary>
+		private AgreementType? agreementTypeField;
+		public AgreementType? agreementType
+		{
+			get
+			{
+				return this.agreementTypeField;
+			}
+			set
+			{
+				this.agreementTypeField = value;
+			}
+		}
+		
+
+		/// <summary>
 		/// Constructor with arguments
 	 	/// </summary>
 	 	public ConfirmPreapprovalRequest(RequestEnvelope requestEnvelope, string preapprovalKey)
@@ -6485,6 +6871,11 @@ namespace PayPal.AdaptivePayments.Model
 			if (this.pin != null)
 			{
 					sb.Append(prefix).Append("pin").Append("=").Append(HttpUtility.UrlEncode(this.pin, BaseConstants.ENCODING_FORMAT)).Append("&");
+			}
+			if (this.agreementType != null)
+			{
+					sb.Append(prefix).Append("agreementType").Append("=").Append(EnumUtils.GetDescription(this.agreementType));
+					sb.Append("&");
 			}
 			return sb.ToString();
 		}
@@ -8322,6 +8713,40 @@ namespace PayPal.AdaptivePayments.Model
 		/// <summary>
 		/// 
 		/// </summary>
+		private ShippingAddressInfo shippingAddressField;
+		public ShippingAddressInfo shippingAddress
+		{
+			get
+			{
+				return this.shippingAddressField;
+			}
+			set
+			{
+				this.shippingAddressField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private string payKeyExpirationDateField;
+		public string payKeyExpirationDate
+		{
+			get
+			{
+				return this.payKeyExpirationDateField;
+			}
+			set
+			{
+				this.payKeyExpirationDateField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
 		private List<ErrorData> errorField = new List<ErrorData>();
 		public List<ErrorData> error
 		{
@@ -8473,6 +8898,18 @@ namespace PayPal.AdaptivePayments.Model
 			{
 				paymentDetailsResponse = (paymentDetailsResponse == null) ? new PaymentDetailsResponse() : paymentDetailsResponse;
 				paymentDetailsResponse.sender = sender;
+			}
+			ShippingAddressInfo shippingAddress =  ShippingAddressInfo.CreateInstance(map, prefix + "shippingAddress", -1);
+			if (shippingAddress != null)
+			{
+				paymentDetailsResponse = (paymentDetailsResponse == null) ? new PaymentDetailsResponse() : paymentDetailsResponse;
+				paymentDetailsResponse.shippingAddress = shippingAddress;
+			}
+			key = prefix + "payKeyExpirationDate";
+			if (map.ContainsKey(key))
+			{
+				paymentDetailsResponse = (paymentDetailsResponse == null) ? new PaymentDetailsResponse() : paymentDetailsResponse;
+				paymentDetailsResponse.payKeyExpirationDate = map[key];
 			}
 			i = 0;
 			while(true)
@@ -8795,6 +9232,23 @@ namespace PayPal.AdaptivePayments.Model
 		
 
 		/// <summary>
+		/// 
+		/// </summary>
+		private string payKeyDurationField;
+		public string payKeyDuration
+		{
+			get
+			{
+				return this.payKeyDurationField;
+			}
+			set
+			{
+				this.payKeyDurationField = value;
+			}
+		}
+		
+
+		/// <summary>
 		/// Constructor with arguments
 	 	/// </summary>
 	 	public PayRequest(RequestEnvelope requestEnvelope, string actionType, string cancelUrl, string currencyCode, ReceiverList receiverList, string returnUrl)
@@ -8890,6 +9344,10 @@ namespace PayPal.AdaptivePayments.Model
 			{
 					string newPrefix = prefix + "sender" + ".";
 					sb.Append(this.senderField.ToNVPString(newPrefix));
+			}
+			if (this.payKeyDuration != null)
+			{
+					sb.Append(prefix).Append("payKeyDuration").Append("=").Append(this.payKeyDuration).Append("&");
 			}
 			return sb.ToString();
 		}
@@ -9737,6 +10195,23 @@ namespace PayPal.AdaptivePayments.Model
 		/// <summary>
 		/// 
 		/// </summary>
+		private AgreementType? agreementTypeField;
+		public AgreementType? agreementType
+		{
+			get
+			{
+				return this.agreementTypeField;
+			}
+			set
+			{
+				this.agreementTypeField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// 
+		/// </summary>
 		private List<ErrorData> errorField = new List<ErrorData>();
 		public List<ErrorData> error
 		{
@@ -9948,6 +10423,12 @@ namespace PayPal.AdaptivePayments.Model
 			{
 				preapprovalDetailsResponse = (preapprovalDetailsResponse == null) ? new PreapprovalDetailsResponse() : preapprovalDetailsResponse;
 				preapprovalDetailsResponse.sender = sender;
+			}
+			key = prefix + "agreementType";
+			if (map.ContainsKey(key))
+			{
+				preapprovalDetailsResponse = (preapprovalDetailsResponse == null) ? new PreapprovalDetailsResponse() : preapprovalDetailsResponse;
+				preapprovalDetailsResponse.agreementType = (AgreementType)EnumUtils.GetValue(map[key],typeof(AgreementType));
 			}
 			i = 0;
 			while(true)
@@ -10918,6 +11399,107 @@ namespace PayPal.AdaptivePayments.Model
 				}
 			}
 			return refundResponse;
+		}
+	}
+
+
+
+
+	/// <summary>
+	/// Phone number with Type of phone number 
+    /// </summary>
+	public partial class PhoneNumber : PhoneNumberType	{
+		
+		// Default US culture info
+		private static CultureInfo DefaultCulture = new CultureInfo("en-US");
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private PhoneType? typeField;
+		public PhoneType? type
+		{
+			get
+			{
+				return this.typeField;
+			}
+			set
+			{
+				this.typeField = value;
+			}
+		}
+		
+
+		/// <summary>
+		/// Constructor with arguments
+	 	/// </summary>
+	 	public PhoneNumber(PhoneType? type)
+	 	{
+			this.type = type;
+		}
+
+		/// <summary>
+		/// Default Constructor
+	 	/// </summary>
+	 	public PhoneNumber()
+	 	{
+		}
+
+
+		public new string ToNVPString(string prefix)
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.Append(base.ToNVPString(prefix));
+			if (this.type != null)
+			{
+					sb.Append(prefix).Append("type").Append("=").Append(EnumUtils.GetDescription(this.type));
+					sb.Append("&");
+			}
+			return sb.ToString();
+		}
+		/// <summary>
+		/// Factory method for creating new object instances. For use by the de-serialization classes only.
+	 	/// </summary>
+	 	/// <param name="map">NVP map as returned by an API call</param>
+	 	/// <param name="prefix">NVP prefix for this class in the response</param>
+	 	/// <param name="index">For array elements, index of this element in the response</param>
+	 	/// <returns>
+	 	/// A new PhoneNumber object created from the passed in NVP map
+	 	/// </returns>
+		public static new PhoneNumber CreateInstance(Dictionary<string, string> map, string prefix, int index)
+		{
+			PhoneNumber phoneNumber = null;
+			string key;
+			int i = 0;
+			if(index != -1)
+			{
+				if (prefix.Length > 0 && !prefix.EndsWith("."))
+				{
+					prefix = prefix + "(" + index + ").";
+				}
+			} 
+			else
+			{
+				if (prefix.Length > 0 && !prefix.EndsWith("."))
+				{
+					prefix = prefix + ".";
+				}
+			}
+			PhoneNumberType phoneNumberType = PhoneNumberType.CreateInstance(map, prefix, index);
+			if (phoneNumberType != null)
+			{
+				phoneNumber = (phoneNumber == null) ? new PhoneNumber() : phoneNumber;
+				phoneNumber.countryCode = phoneNumberType.countryCode;
+				phoneNumber.phoneNumber = phoneNumberType.phoneNumber;
+				phoneNumber.extension = phoneNumberType.extension;
+			}
+			key = prefix + "type";
+			if (map.ContainsKey(key))
+			{
+				phoneNumber = (phoneNumber == null) ? new PhoneNumber() : phoneNumber;
+				phoneNumber.type = (PhoneType)EnumUtils.GetValue(map[key],typeof(PhoneType));
+			}
+			return phoneNumber;
 		}
 	}
 

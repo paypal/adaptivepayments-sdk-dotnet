@@ -13,6 +13,7 @@
 
 </head>
 <body>
+	<img src="https://devtools-paypal.com/image/bdg_payments_by_pp_2line.png" alt="PAYMENTS BY PayPal" />
     <div id="wrapper">
         <div id="header">
             <h3>
@@ -22,7 +23,7 @@
                 addresses for a payment.</div>
         </div>
         <div id="request_form">
-            <form id="Form1" method="post" action="adaptivepaymentshandler.ashx" runat="server">
+            <form id="Form1" method="post" action="AdaptivePaymentsHandler.ashx" runat="server">
                 <div class="params">
                     <div class="param_name">
                         Key (Pay key or preapproval key) *</div>
@@ -32,7 +33,7 @@
                 </div>
                 <div class="submit">
                     <asp:Button ID="AdaptivePaymentsBtn" Text="GetAvailableShippingAddresses" runat="server"
-                        PostBackUrl="adaptivepaymentshandler.ashx" />
+                        PostBackUrl="AdaptivePaymentsHandler.ashx" />
                 </div>
             </form>
         </div>

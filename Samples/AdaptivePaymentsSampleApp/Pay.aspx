@@ -12,6 +12,7 @@
 
 </head>
 <body>
+	<img src="https://devtools-paypal.com/image/bdg_payments_by_pp_2line.png" alt="PAYMENTS BY PayPal" />
     <div id="wrapper">
         <div id="header">
             <h3>
@@ -22,7 +23,7 @@
                 payments, chained payments, or parallel payments.</div>
         </div>
         <div id="request_form">
-            <form action="adaptivepaymentshandler.ashx" method="post" runat="server">
+            <form action="AdaptivePaymentsHandler.ashx" method="post" runat="server">
                 <div class="params">
                     <div class="param_name">
                         Action type *</div>
@@ -129,6 +130,10 @@
                                 <option value="true">true</option>
                                 <option value="false" selected="selected">false</option>
                             </select>
+                            <asp:DropDownList runat="server" ID="primaryReceiver1">
+                                <asp:ListItem Text="True" Value="true" Selected="True" />
+                                <asp:ListItem Text="False" Value="false" />
+                            </asp:DropDownList>
                         </td>
                         <td>
                             <input type="text" name="invoiceId" id="invoiceid_0" value="" class="smallfield" />
@@ -149,7 +154,7 @@
                         </td>
                     </tr>
                 </table>
-                <table align="center">
+                <table>
                     <tr>
                         <td>
                             <a onclick="cloneRow('receiverTable', 8)" id="Submit"><span>Add Receiver </span></a>
@@ -225,7 +230,7 @@
                     </tr>
                 </table>
                 <div class="submit">
-                    <asp:Button ID="AdaptivePaymentsBtn" Text="Pay" runat="server" PostBackUrl="adaptivepaymentshandler.ashx" />
+                    <asp:Button ID="AdaptivePaymentsBtn" Text="Pay" runat="server" PostBackUrl="AdaptivePaymentsHandler.ashx" />
                 </div>
             </form>
         </div>
