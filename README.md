@@ -1,4 +1,4 @@
-# PayPal Adaptive Payments Classic SDK for .NET
+# PayPal .NET Adaptive Payments SDK
 
 #### Adaptive Payments moving to limited release
 
